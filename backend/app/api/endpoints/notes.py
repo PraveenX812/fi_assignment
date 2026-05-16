@@ -55,7 +55,10 @@ def create_note(payload: NoteCreate, db: Session = Depends(get_db), user: User =
 
 @router.get("/notes", response_model=list[NoteResponse])
 def list_notes(page: int = Query(None, ge=1), per_page: int = Query(10, ge=1), db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    query = db.query(Note).filter(Note.owner_id == user.id).order_by(Note.created_at.desc())
+    shared_note_ids = db.query(SharedNote.note_id).filter(SharedNote.shared_with_user_id == user.id)
+    query = db.query(Note).filter(
+        or_(Note.owner_id == user.id, Note.id.in_(shared_note_ids))
+    ).order_by(Note.created_at.desc())
     if page: return query.offset((page-1)*per_page).limit(per_page).all()
     return query.all()
 
@@ -130,4 +133,8 @@ async def upload_attachment(note_id: str, file: UploadFile = File(...), db: Sess
 @router.get("/search", response_model=list[NoteResponse])
 def search_notes(q: str = Query(..., min_length=1), db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     p = f"%{q}%"
-    return db.query(Note).filter(Note.owner_id == user.id, or_(Note.title.ilike(p), Note.content.ilike(p))).all()
+    shared_note_ids = db.query(SharedNote.note_id).filter(SharedNote.shared_with_user_id == user.id)
+    return db.query(Note).filter(
+        or_(Note.owner_id == user.id, Note.id.in_(shared_note_ids)),
+        or_(Note.title.ilike(p), Note.content.ilike(p))
+    ).order_by(Note.created_at.desc()).all()

@@ -32,6 +32,10 @@ class Note(Base):
     versions = relationship("NoteVersion", back_populates="note", cascade="all, delete-orphan", order_by="NoteVersion.version_number.desc()")
     attachments = relationship("Attachment", back_populates="note", cascade="all, delete-orphan")
 
+    @property
+    def owner_email(self) -> str:
+        return self.owner.email if self.owner else None
+
 class SharedNote(Base):
     __tablename__ = "shared_notes"
     id = Column(String, primary_key=True, default=_new_id)

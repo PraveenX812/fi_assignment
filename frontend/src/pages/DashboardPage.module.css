@@ -1,0 +1,57 @@
+.dashboardContainer {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 280px;
+  background-color: var(--surface-color);
+  border-right: 1px solid var(--surface-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--surface-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebarHeader h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.logoutBtn {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.logoutBtn:hover {
+  color: var(--danger-color);
+}
+
+.searchContainer {
+  padding: 1rem;
+}
+
+.searchInput {
+  width: 100%;
+  background-color: var(--bg-color);
+}
+
+.notesList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 1rem;
+}
+
+.mainContent {
+  flex: 1;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+}

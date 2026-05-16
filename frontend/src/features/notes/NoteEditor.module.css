@@ -1,0 +1,77 @@
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2rem;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.actionBtn {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--surface-border);
+  transition: all var(--transition-speed);
+}
+
+.actionBtn:hover {
+  background-color: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.dangerBtn {
+  color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.dangerBtn:hover {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.titleInput {
+  font-size: 2rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  margin-bottom: 1rem;
+  padding: 0;
+  color: var(--text-primary);
+}
+
+.titleInput:focus {
+  outline: none;
+  border: none;
+}
+
+.contentInput {
+  flex: 1;
+  font-size: 1rem;
+  border: none;
+  background: transparent;
+  resize: none;
+  padding: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.contentInput:focus {
+  outline: none;
+  border: none;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+}

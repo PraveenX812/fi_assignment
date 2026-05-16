@@ -28,6 +28,8 @@ class NoteResponse(BaseModel):
     id: str
     title: str
     content: str
+    owner_id: str
+    owner_email: Optional[str] = None
     created_at: datetime
     updated_at: datetime
     class Config:
