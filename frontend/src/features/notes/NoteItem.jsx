@@ -16,7 +16,7 @@ export default function NoteItem({ note, isActive, onClick, isShared }) {
       <div className={styles.noteMeta}>
         <span>{date}</span>
         {isShared && note.owner_email && (
-          <span style={{ fontStyle: 'italic' }}>by {note.owner_email.split('@')[0]}</span>
+          <span style={{ fontStyle: 'italic' }}>by {note.owner_email}</span>
         )}
       </div>
     </div>

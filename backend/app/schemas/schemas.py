@@ -24,6 +24,17 @@ class NoteUpdate(BaseModel):
     title: Optional[str] = Field(None, min_length=1, max_length=500)
     content: Optional[str] = Field(None, min_length=1)
 
+class AttachmentResponse(BaseModel):
+    id: str
+    note_id: str
+    filename: str
+    file_url: str
+    size_bytes: int
+    content_type: str
+    created_at: datetime
+    class Config:
+        from_attributes = True
+
 class NoteResponse(BaseModel):
     id: str
     title: str
@@ -32,6 +43,7 @@ class NoteResponse(BaseModel):
     owner_email: Optional[str] = None
     created_at: datetime
     updated_at: datetime
+    attachments: list[AttachmentResponse] = []
     class Config:
         from_attributes = True
 
@@ -49,16 +61,7 @@ class NoteVersionResponse(BaseModel):
     class Config:
         from_attributes = True
 
-class AttachmentResponse(BaseModel):
-    id: str
-    note_id: str
-    filename: str
-    file_url: str
-    size_bytes: int
-    content_type: str
-    created_at: datetime
-    class Config:
-        from_attributes = True
+
 
 class AboutResponse(BaseModel):
     name: str

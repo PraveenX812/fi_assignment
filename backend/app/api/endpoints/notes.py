@@ -123,7 +123,8 @@ async def upload_attachment(note_id: str, file: UploadFile = File(...), db: Sess
     if file.content_type not in settings.ALLOWED_FILE_TYPES: raise HTTPException(400, "Invalid file type")
     contents = await file.read()
     if len(contents) > settings.MAX_FILE_SIZE_MB * 1024 * 1024: raise HTTPException(400, "File too large")
-    res = cloudinary.uploader.upload(contents, folder=f"notes/{note_id}", resource_type="auto")
+    res_type = "raw" if file.content_type == "application/pdf" else "auto"
+    res = cloudinary.uploader.upload(contents, folder=f"notes/{note_id}", resource_type=res_type)
     a = Attachment(note_id=note_id, uploader_id=user.id, filename=file.filename, file_url=res["secure_url"], public_id=res["public_id"], size_bytes=len(contents), content_type=file.content_type)
     db.add(a)
     db.commit()
